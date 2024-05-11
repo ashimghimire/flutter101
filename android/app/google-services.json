@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275429324401",
+    "project_id": "prosoft-90be9",
+    "storage_bucket": "prosoft-90be9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275429324401:android:4ae887a0f66bd1caec0dd0",
+        "android_client_info": {
+          "package_name": "com.example.prioritysoft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlQWeaUzRntJcckL0ixP2DqfLMvogtLb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

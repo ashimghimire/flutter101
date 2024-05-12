@@ -1,8 +1,10 @@
 
 
+import 'package:prioritysoft/Logger.dart';
+
 class BrandList {
   late List<Brand> _brandlist;
-
+  static final  log=logger;
   BrandList(this._brandlist);
 
   List<Brand> get brandlist => _brandlist;
@@ -12,7 +14,9 @@ class BrandList {
   }
   static List<Brand> fromJson (List<dynamic> parsedJson){
     List<Brand> brands=[];
+    log.d('reacjed');
     for(var json in parsedJson){
+      log.d(json.toString());
       brands.add(Brand.fromJson(json));
     }
     return brands;

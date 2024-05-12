@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prioritysoft/screens/HomePage.dart';
 import 'package:prioritysoft/screens/ProductDetailPage.dart';
 import 'package:prioritysoft/screens/ProductFilter.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'ProductProvider.dart';
 import 'firebase_options.dart';
-import 'package:riverpod/riverpod.dart';
+
+
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 void main() async {
+  runApp(const MyApp());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(child: MaterialApp(
+    return ProductProvider(
+        key: GlobalKey(),
+        child: MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: Colors.white,
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes:{
-        '/':(context)=>  HomePage(title: 'Discover', key: GlobalKey(debugLabel: 'homepage'),),
+        '/':(context) =>  HomePage(title: 'Discover', key: GlobalKey(debugLabel: 'homepage'),),
         '/productDetail':(context)=>ProductDetailPage(key:GlobalKey(debugLabel: 'productdetailpage') ,),
         '/productFilter' :(context)=>ProductFilter(key:GlobalKey(debugLabel: 'productFilter'))
       },

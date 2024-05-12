@@ -5,15 +5,15 @@ import 'package:prioritysoft/screens/ProductFilter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'ProductProvider.dart';
 import 'firebase_options.dart';
-
-
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 void main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
+
+
+
 }
 
 class MyApp extends StatelessWidget {

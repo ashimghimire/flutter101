@@ -36,7 +36,10 @@ class HomePage extends StatelessWidget {
         title: Padding(padding:EdgeInsets.only(left:14.0, right:14.0),child:Text(title??'', style: const TextStyle(fontWeight: FontWeight.w900,fontSize: 30, letterSpacing: 0.3))),
         actions: const [ Padding ( padding:EdgeInsets.only(right:14.0), child:Badge(backgroundColor: Colors.red, alignment: Alignment.center, smallSize: 10.0,
             child:ImageIcon(AssetImage('assets/images/img.png'), size: 24)))],
-        bottom:  HomeTabBar(context),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight), // Adjust height as needed
+          child: HomeTabBar(context), // Assuming HomeTabBar returns a PreferredSizeWidget
+        ),
         automaticallyImplyLeading: false,
       ),
       body: Padding( padding:EdgeInsets.only(left:14.0, right: 14.0), child:HomeTabsView(shoeCard, context)),

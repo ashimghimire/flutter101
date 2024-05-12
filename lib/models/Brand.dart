@@ -48,7 +48,7 @@ class Brand {
 
   // Factory method to deserialize JSON
    Brand.fromJson (Map<String, dynamic> parsedJson)
-       :_id=parsedJson['_docId'],
+       :_id=parsedJson['id'],
          _name=parsedJson['name'],
          _logo=parsedJson['logo'];
 

@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prioritysoft/models/Brand.dart' as b;
 import 'package:prioritysoft/widgets/BrandList.dart' ;
 import 'package:prioritysoft/Logger.dart';
+import 'package:rxdart/rxdart.dart';
+import 'models/Brand.dart';
 import 'models/Product.dart';
+
 
 
 class TempSingleRepo {
@@ -15,8 +19,8 @@ class TempSingleRepo {
     db=FirebaseFirestore.instance;
   }
 
-    Stream<QuerySnapshot<Map<String, dynamic>>> getAllProducts()  {
-    var event = FirebaseFirestore.instance.collection("product").get().asStream();
+    Stream<List<Product>> getAllProducts()  {
+    var event = FirebaseFirestore.instance.collection("product").get().asStream().map((querysnapshot) => querysnapshot.docs.map((doc)=>Product.fromJson(doc.data())).toList());
     return event;
   }
 
@@ -25,11 +29,15 @@ class TempSingleRepo {
       return event.docs;
     }
 
-    Stream<QuerySnapshot<Map<String, dynamic>>> getAllBrands()  {
+    Stream<List<b.Brand>> getAllBrands()  {
+
       var event =  FirebaseFirestore.instance.collection('brands').get().asStream();
-      // event.transform(streamTransformer).pipe();
-      return event;
+     return getListFromStream(event);
+
     }
 
+    Stream<List<b.Brand>> getListFromStream(Stream<QuerySnapshot<Map<String, dynamic>>> stream){
+        return stream.map((querysnapshot) => querysnapshot.docs.map((doc)=>b.Brand(doc['name'], doc['logo'], doc.id)).toList());
+    }
 }
 

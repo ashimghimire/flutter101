@@ -67,7 +67,7 @@ class Review {
 
   // Factory method to deserialize JSON
   Review.fromJson (Map<String, dynamic> parsedJson)
-      :_id=parsedJson['_docId'],
+      :_id=parsedJson['id'],
         _name=parsedJson['name'],
         _image=parsedJson['image'],
         _description=parsedJson['description'],

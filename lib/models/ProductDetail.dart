@@ -65,7 +65,7 @@ class ProductDetail {
       }
 
   ProductDetail.fromJson (Map<String, dynamic> parsedJson)
-      : _id=parsedJson['_docId'],
+      : _id=parsedJson['id'],
         _brandId=parsedJson['brand_id'],
         _genderVariations=parsedJson['gender_variations'],
         _colorVariations=parsedJson['color_variations'],

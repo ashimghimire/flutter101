@@ -20,7 +20,7 @@ class ShoesCard extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(5.0),
             child: Container(
               decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(20.0)) ,
               clipBehavior: Clip.antiAlias,
@@ -36,7 +36,7 @@ class ShoesCard extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Padding(
-            padding: EdgeInsets.only(left: 15.0,right: 15.0),
+            padding: EdgeInsets.only(left: 5.0,right: 5.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

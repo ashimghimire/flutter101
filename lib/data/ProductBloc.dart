@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prioritysoft/TempSingleRepo.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:prioritysoft/models/Product.dart';
+import 'package:rxdart/transformers.dart';
 import '../models/Brand.dart';
 import 'package:prioritysoft/Logger.dart';
 
@@ -13,25 +14,40 @@ class ProductBloc extends Object {
   final homepageFavouredData=BehaviorSubject<Map<Brand, List<Product>>>();
   static final log=logger;
   static final TempSingleRepo singleRepo = TempSingleRepo();
-  Stream<Map<Brand, List<Product>>> get items => _productsOutput.stream;
-   late final Stream<QuerySnapshot<Map<String, dynamic>>>  productList;
+  Stream<Map<Brand, List<Product>>> get items => homepageFavouredData.stream;
+  static late  Stream<List<Product>>  productList;
+  static late  Stream<List<Brand>> brandList;
+
+   void initialize(){
+      productList = singleRepo.getAllProducts();
+      brandList = singleRepo.getAllBrands();
+      transformStream(
+          brandList, productList).pipe(homepageFavouredData.sink);
+    }
+
+
 
   ProductBloc() {
+    log.d("----inside constructor");
     productList = singleRepo.getAllProducts();
-    productList.transform(_streamTransformer).pipe(homepageFavouredData.sink);
+    brandList = singleRepo.getAllBrands();
+
+
   }
 
-  Stream<Future<List<Product>>> get response => productRepo.stream;
+  Stream<Map<Brand, List<Product>>> transformStream(Stream<List<Brand>> brandStream, Stream<List<Product>> productStream) {
+    return brandStream.asyncMap((List<Brand> brands) async {
+      Map<Brand, List<Product>> brandProductMap = {};
+      await for (var products in productStream) {
+        for (var brand in brands) {
+          brandProductMap[brand] = products.where((product) => product.brandId == brand.id).toList();
+        }
 
-  final StreamTransformer<QuerySnapshot<Map<String, dynamic>>, Map<Brand, List<Product>>> _streamTransformer =
-  StreamTransformer.fromHandlers(
-    handleData: (QuerySnapshot<Map<String, dynamic>> data, EventSink<Map<Brand, List<Product>>> sink) {
-      log.d("Inside the loop");
-      List<Product> list = ProductList.fromJson(data.docs);
+      }
+      return brandProductMap;
+    });
+  }
 
-
-    },
-  );
 
   dispose() {
     productRepo.close();

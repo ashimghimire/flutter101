@@ -103,14 +103,14 @@ class Product {
 
 
   Product.fromJson (Map<String, dynamic> parsedJson)
-      :_id=parsedJson['_docId'],
-        _name=parsedJson['name'],
-        _average_rating=parsedJson['name'],
-        _color=parsedJson['color'],
-        _gender=parsedJson['gender'],
-        _brandId=parsedJson['brand_id'],
-        _price=parsedJson['price'],
-        _title=parsedJson['title'],
-        _image=parsedJson["image"],
-        _no_of_reviews=parsedJson['no_of_reviews'];
+      :_id=parsedJson['id']??'',
+        _name=parsedJson['name']??'',
+        _average_rating=parsedJson['name']??'',
+        _color=parsedJson['color']??'',
+        _gender=parsedJson['gender']??'',
+        _brandId=parsedJson['brand_id']??'',
+        _price=parsedJson['price']??'',
+        _title=parsedJson['title']??'',
+        _image=parsedJson["image"]??'',
+        _no_of_reviews=parsedJson['no_of_reviews']??'';
 }

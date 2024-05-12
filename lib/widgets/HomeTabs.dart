@@ -2,29 +2,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logger/logger.dart';
 import 'package:prioritysoft/ProductProvider.dart';
 import 'package:prioritysoft/widgets/ShoesCard.dart';
 import 'package:prioritysoft/models/Product.dart';
 import 'package:prioritysoft/models/Brand.dart';
 import '../Logger.dart';
 import '../ShoeCard.dart';
+import 'package:prioritysoft/Logger.dart';
+final log=logger;
 
-PreferredSizeWidget? HomeTabBar(BuildContext context) {
+Widget HomeTabBar(BuildContext context) {
+
   final bloc = ProductProvider.of(context);
-   final log=logger;
-   StreamBuilder<Map<Brand, List<Product?>>>(
-    stream: bloc?.homepageFavouredData,
+  bloc?.initialize();
+  log.d("-===========-==-=---=-=");
+  log.d(bloc?.items.first.toString());
+  return StreamBuilder<Map<Brand, List<Product?>>>(
+    stream: bloc?.items,
     builder: (BuildContext context, AsyncSnapshot<Map<Brand, List<Product?>>> snapshot) {
+
       if (snapshot.hasData) {
         log.d("324234");
-        log.d(snapshot.data.toString());
+        Map<Brand, List<Product?>>? data=snapshot.data;
         final brands = snapshot.data!.keys.toList();
-        final tabs = brands.map((brand) => Tab(text: brand.name)).toList(); // Assuming brands have a name property
-        return  TabBar(
+        final tabs = brands.where((brand) => data![brand]!.isNotEmpty).map((brand) {
+          return Tab(text: brand.name); // Assuming brands have a name property
+        }).toList();
+        return TabBar(
           dividerHeight: 0.0,
           labelColor: Colors.black,
-          overlayColor:MaterialStatePropertyAll(Colors.transparent) ,
-          indicator: const BoxDecoration(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          indicator: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color: Colors.transparent,
@@ -33,20 +42,20 @@ PreferredSizeWidget? HomeTabBar(BuildContext context) {
             ),
           ),
           unselectedLabelColor: Colors.black26,
-          labelStyle: const TextStyle(fontSize:16.0,fontWeight: FontWeight.w700,letterSpacing:1.0),
-          tabs: tabs);
+          labelStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, letterSpacing: 1.0),
+          tabs: tabs,
+        );
       } else if (snapshot.hasError) {
-        log.d(snapshot.error.toString());
+
         return Text('Error: ${snapshot.error}'); // Or a more user-friendly message
       } else {
-        log.d('Loading!!!');
+
         return const CircularProgressIndicator();
       }
     },
   );
-
-
 }
+
 
 
 

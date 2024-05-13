@@ -105,7 +105,7 @@ class Product {
   Product.fromJson (Map<String, dynamic> parsedJson)
       :_id=parsedJson['id']??'',
         _name=parsedJson['name']??'',
-        _average_rating=parsedJson['name']??'',
+        _average_rating=parsedJson['average_rating']??'',
         _color=parsedJson['color']??'',
         _gender=parsedJson['gender']??'',
         _brandId=parsedJson['brand_id']??'',

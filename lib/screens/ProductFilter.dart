@@ -19,14 +19,14 @@ class ProductFilter extends StatelessWidget {
         height:70 ,
         surfaceTintColor: Colors.white,
         child: Row( children: [
-           SizedBox( width: 150, height: 50,  child: OutlinedButton(onPressed: () {  },
+           SizedBox( width: 130, height: 50,  child: OutlinedButton(onPressed: () {  },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.transparent)),
               child:Text("RESET", style: TextStyle(color: Colors.black,
                   fontWeight: FontWeight.w700, fontSize: 14.0
 
               ),))),
-          SizedBox(width: 40),
-          SizedBox( width: 150, height: 50,  child:FilledButton(onPressed: () {  },
+          SizedBox(width: 60),
+          SizedBox( width: 130, height: 50,  child:FilledButton(onPressed: () {  },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
               child: Text("APPLY", style: TextStyle(color: Colors.white,
                   fontWeight: FontWeight.w700, fontSize: 14.0

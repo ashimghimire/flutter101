@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -62,19 +64,43 @@ Widget HomeTabBar(BuildContext context) {
 
 
 
-  Widget HomeTabsView(List<ShoeCard> shoecards, BuildContext context) {
-    return
-        TabBarView(
-      children: <Widget>[GridView.builder(gridDelegate:
-      const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 5,childAspectRatio: 0.8),
-          itemBuilder: (BuildContext context, int index){
-           return  ShoesCard(shoeCard:shoecards[index]);
-          },itemCount: shoecards.length,),
-        GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 5,childAspectRatio: 0.8),
-            itemBuilder: (BuildContext context, int index){
-                return  ShoesCard(shoeCard:shoecards[index]);
-              // return Text('popper');
-            }, itemCount:shoecards.length)
+  Widget HomeTabsView(BuildContext context) {
+    final bloc = ProductProvider.of(context);
 
-        ], );
+    return
+      StreamBuilder(
+        stream: bloc?.items,
+        builder: (BuildContext context, AsyncSnapshot<Map<Brand, List<Product?>>> snapshot) {
+          if (snapshot.hasData) {
+            Map<Brand, List<Product?>>? data = snapshot.data;
+            final brands = snapshot.data!.keys.toList();
+            final gridView = brands.where((brand) => data![brand]!.isNotEmpty).map((brand) {
+              List<Product?>? product = data?[brand];
+              int size = 0; // Initialize size here
+              if (product != null && product.isNotEmpty) {
+                size = product.length;
+              }
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: size,
+                itemBuilder: (BuildContext context, int index) {
+                  // Ensure product is not null before accessing its elements
+                  return product != null && product.isNotEmpty ? ShoesCard(shoeCard: product[index]) : SizedBox();
+                },
+              );
+            }).toList(); // Convert the iterable to a list
+            // Return the list of grid views here
+            return TabBarView(
+              children: gridView,
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+
   }

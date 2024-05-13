@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:prioritysoft/ShoeCard.dart';
 import 'package:prioritysoft/screens/ProductDetailPage.dart';
 
-class ShoesCard extends StatelessWidget {
-  final ShoeCard shoeCard;
+import '../models/Product.dart';
 
-  const ShoesCard({required this.shoeCard});
+class ShoesCard extends StatelessWidget {
+  final Product? shoeCard;
+
+  const ShoesCard({super.key, required this.shoeCard});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ShoesCard extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               width: double.infinity,
               child: Image.network(
-                shoeCard.image,
+                shoeCard!.image,
                 fit: BoxFit.cover,
                 repeat: ImageRepeat.noRepeat,
               ),
@@ -43,7 +45,7 @@ class ShoesCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  shoeCard.name,
+                  shoeCard!.title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
@@ -55,12 +57,12 @@ class ShoesCard extends StatelessWidget {
                   children: [
                     Icon(Icons.star_outlined, size: 18, color: Colors.yellow),
                     SizedBox(width: 10),
-                    Text(shoeCard.averageRating, textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.w700)),
+                    Text(shoeCard!.average_rating, textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.w700)),
                     SizedBox(width: 10),
-                    Text("(${shoeCard.numberOfReviews}) Reviews", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black12)),
+                    Text("(${shoeCard!.no_of_reviews}) Reviews", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black12)),
                   ],
                 ),
-                Text(" ${shoeCard.price}", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15.0)),
+                Text(" ${shoeCard!.price}", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15.0)),
               ],
             ),
           ),

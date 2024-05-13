@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: Padding( padding:EdgeInsets.only(left:14.0, right: 14.0), child:HomeTabsView(shoeCard, context)),
+      body: Padding( padding:EdgeInsets.only(left:14.0, right: 14.0), child:HomeTabsView(context)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
       SizedBox( width: 130, child:FloatingActionButton(onPressed: () {

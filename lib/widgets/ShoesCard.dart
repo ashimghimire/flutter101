@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prioritysoft/ProductProvider.dart';
 import 'package:prioritysoft/ShoeCard.dart';
 import 'package:prioritysoft/screens/ProductDetailPage.dart';
 
@@ -11,11 +12,11 @@ class ShoesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+  final bloc = ProductProvider.of(context);
     return GestureDetector(
         onTap: () {
+          bloc?.addSelected(shoeCard!);
           Navigator.pushNamed(context, '/productDetail');
-
         }, child:Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

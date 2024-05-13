@@ -1,38 +1,42 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prioritysoft/TempSingleRepo.dart';
+import 'package:prioritysoft/models/ProductDetailReducer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:prioritysoft/models/Product.dart';
-import 'package:rxdart/transformers.dart';
 import '../models/Brand.dart';
 import 'package:prioritysoft/Logger.dart';
 
 class ProductBloc extends Object {
-  final _productsOutput = BehaviorSubject<Map<Brand, List<Product>>>();
+  final productsOutput = BehaviorSubject<Stream<ProductDetailReducer>>();
   final productRepo = BehaviorSubject<Future<List<Product>>>();
   final homepageFavouredData=BehaviorSubject<Map<Brand, List<Product>>>();
   static final log=logger;
   static final TempSingleRepo singleRepo = TempSingleRepo();
   Stream<Map<Brand, List<Product>>> get items => homepageFavouredData.stream;
+  Stream<Stream<ProductDetailReducer>> get productDetails => productsOutput.stream;
   static late  Stream<List<Product>>  productList;
   static late  Stream<List<Brand>> brandList;
+  final  selectedProduct= PublishSubject<Product>();
+  Function(Product) get addSelected => selectedProduct.sink.add;
 
    void initialize(){
       productList = singleRepo.getAllProducts();
       brandList = singleRepo.getAllBrands();
       transformStream(
           brandList, productList).pipe(homepageFavouredData.sink);
+
+
     }
 
 
 
+
   ProductBloc() {
-    log.d("----inside constructor");
     productList = singleRepo.getAllProducts();
     brandList = singleRepo.getAllBrands();
-
-
+    selectedProduct.listen((value) {
+      productsOutput.sink.add(singleRepo.getProductDetail(value));
+    });
   }
 
   Stream<Map<Brand, List<Product>>> transformStream(Stream<List<Brand>> brandStream, Stream<List<Product>> productStream) {
@@ -51,6 +55,8 @@ class ProductBloc extends Object {
 
   dispose() {
     productRepo.close();
-    _productsOutput.close();
+    productsOutput.close();
+    homepageFavouredData.close();
+    selectedProduct.close();
   }
 }

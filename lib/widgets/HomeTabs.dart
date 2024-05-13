@@ -18,8 +18,6 @@ Widget HomeTabBar(BuildContext context) {
 
   final bloc = ProductProvider.of(context);
   bloc?.initialize();
-  log.d("-===========-==-=---=-=");
-  log.d(bloc?.items.first.toString());
   return StreamBuilder<Map<Brand, List<Product?>>>(
     stream: bloc?.items,
     builder: (BuildContext context, AsyncSnapshot<Map<Brand, List<Product?>>> snapshot) {

@@ -16,17 +16,8 @@ class HomePage extends StatelessWidget {
   final String? title;
    HomePage({super.key, this.title});
 
-  List<ShoeCard> generateMockApiResponse(){
-    List<ShoeCard> list=[];
-   var shoe=  ShoeCard(image: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6d297943-4dad-4cf7-a1c5-0a4786591ae1/air-max-dn-shoes-drXjb8.png', name:'Jordan 1 Retro High Tie Dye',price: '\$235,00',numberOfReviews: '1098',averageRating: '4.5');
-   list.add(shoe);
-    shoe=  ShoeCard(image: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a818a131-a5b1-43eb-ac0c-d68d33141819/dunk-low-next-nature-shoes-cFQPTp.png',name:'Jordan 1 Retro High Tie Dye',price: '\$235,00',numberOfReviews: '1092',averageRating: '3.6');
-    list.add(shoe);
-    return list;
-  }
   @override
   Widget build(BuildContext context) {
-    List<ShoeCard> shoeCard=generateMockApiResponse();
     return DefaultTabController(length: 2,
     child:Scaffold(
         backgroundColor: Colors.white,
@@ -46,6 +37,7 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
       SizedBox( width: 130, child:FloatingActionButton(onPressed: () {
+
         Navigator.pushNamed(context, '/productFilter');
       },
       shape: ContinuousRectangleBorder(

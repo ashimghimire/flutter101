@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prioritysoft/models/ProductDetail.dart';
 
 class Description extends StatelessWidget {
-  const Description({super.key});
+  final ProductDetail productDetail;
+
+  const Description(this.productDetail, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class Description extends StatelessWidget {
       ),
       SizedBox(height: 12,),
       Text(
-        "Engineered to crush only movement-based wourout, these On sneakers enhance the labels orginal Cloud sneaker with cutting edge technologies",
+        "y ",
         textAlign: TextAlign.left,
         style: TextStyle(
           height: 2,

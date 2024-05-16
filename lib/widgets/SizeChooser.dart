@@ -1,6 +1,28 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prioritysoft/ProductProvider.dart';
+import 'package:prioritysoft/models/ProductDetail.dart';
+import 'package:prioritysoft/Logger.dart';
+
 class SizeChooser extends StatelessWidget {
-  const SizeChooser({super.key});
+
+
+
+  final ProductDetail productDetail;
+
+  const SizeChooser(this.productDetail,{super.key});
+
+  List<Widget> cDisplay(ProductDetail productDetail){
+    var log=logger;
+    List<Widget> wiZ=[];
+     for(var i in productDetail.size){
+       bool active=false;
+       if(productDetail.size==41)  active= true;
+       wiZ.add(circularDisplay(i as String, active));
+       wiZ.add(const SizedBox(width: 16.0,));
+     }
+     return wiZ;
+  }
 
   Widget circularDisplay( String text , bool active){
     return  Container(height:40,width:40,
@@ -14,17 +36,6 @@ class SizeChooser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Padding( padding: const EdgeInsets.only(left: 0.0, right:0.0),child:Row(children: [
-
-      SizedBox(width: 0,),
-      circularDisplay("39",false),
-      SizedBox(width: 15,),
-      circularDisplay("9.5", false),
-      SizedBox(width: 15,),
-      circularDisplay("40", false),
-      SizedBox(width: 15,),
-      circularDisplay("41", true),
-
-    ],));
+    return   Padding( padding: const EdgeInsets.only(left: 0.0, right:0.0),child:Row(children: cDisplay(productDetail)));
   }
 }

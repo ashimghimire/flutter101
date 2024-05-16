@@ -50,56 +50,56 @@ class Product {
       this._title,
       this._id);
 
-     String get name => _name; // Getters
-     String get color => _color;
-      String get gender => _gender;
-      String  get image => _image;
-      String   get no_of_reviews => _no_of_reviews;
-      String   get id => _id;
-      String get average_rating => _average_rating;
+  String get name => _name; // Getters
+  String get color => _color;
+  String get gender => _gender;
+  String  get image => _image;
+  String   get no_of_reviews => _no_of_reviews;
+  String   get id => _id;
+  String get average_rating => _average_rating;
 
   set average_rating(String value) {
     _average_rating = value;
   }
 
   set id(String value) {
-        _id = value;
-      }
-      set color(String value) {
-        _color = value;
-      }
+    _id = value;
+  }
+  set color(String value) {
+    _color = value;
+  }
 
-      set gender(String value) {
-        _gender = value;
-      }
+  set gender(String value) {
+    _gender = value;
+  }
 
-      set image(String value) {
-        _image = value;
-      }
+  set image(String value) {
+    _image = value;
+  }
 
-      set no_of_reviews(String value) {
-        _no_of_reviews = value;
-      }
+  set no_of_reviews(String value) {
+    _no_of_reviews = value;
+  }
 
-      set name(String value) {
-        _name = value;
-      } // Factory method to deserialize JSON
+  set name(String value) {
+    _name = value;
+  } // Factory method to deserialize JSON
 
-      set brand_id(String value) {
-        _brandId = value;
-      }
+  set brand_id(String value) {
+    _brandId = value;
+  }
 
-      String get price => _price;
+  String get price => _price;
 
-      set price(String value) {
-        _price = value;
-      }
+  set price(String value) {
+    _price = value;
+  }
 
-      String get title => _title;
+  String get title => _title;
 
-      set title(String value) {
-        _title = value;
-      }
+  set title(String value) {
+    _title = value;
+  }
 
 
   Product.fromJson (Map<String, dynamic> parsedJson)

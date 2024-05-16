@@ -5,7 +5,7 @@ class ProductDetail {
   String _brandId;
   String _description;
   var _colorVariations=[];
-  var _size=[];
+  List<dynamic> _size=[];
   var _genderVariations=[];
   var _images=[];
   String _productId;
@@ -65,14 +65,14 @@ class ProductDetail {
       }
 
   ProductDetail.fromJson (Map<String, dynamic> parsedJson)
-      : _id=parsedJson['id'],
-        _brandId=parsedJson['brand_id'],
-        _genderVariations=parsedJson['gender_variations'],
-        _colorVariations=parsedJson['color_variations'],
-        _images=parsedJson['color_variations'],
-        _size=parsedJson['size'],
-        _description=parsedJson['description'],
-        _productId=parsedJson["product_id"];
+      : _id=parsedJson['id']??'',
+        _brandId=parsedJson['brand_id']??'',
+        _genderVariations=parsedJson['gender_variations']??'',
+        _colorVariations=parsedJson['color_variations']??'',
+        _images=parsedJson['color_variations']??'',
+        _size=parsedJson['size']??'',
+        _description=parsedJson['description']??'',
+        _productId=parsedJson["product_id"]??'';
 
 
 }

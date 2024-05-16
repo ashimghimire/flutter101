@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:prioritysoft/ProductProvider.dart';
 import 'package:prioritysoft/ShoeCard.dart';
 import 'package:prioritysoft/screens/ProductDetailPage.dart';
+import 'package:prioritysoft/Logger.dart';
 
 import '../models/Product.dart';
 
 class ShoesCard extends StatelessWidget {
   final Product? shoeCard;
-
   const ShoesCard({super.key, required this.shoeCard});
 
   @override
   Widget build(BuildContext context) {
+    var log=logger;
   final bloc = ProductProvider.of(context);
     return GestureDetector(
         onTap: () {

@@ -17,7 +17,6 @@ final log=logger;
 Widget HomeTabBar(BuildContext context) {
 
   final bloc = ProductProvider.of(context);
-  bloc?.initialize();
   return StreamBuilder<Map<Brand, List<Product?>>>(
     stream: bloc?.items,
     builder: (BuildContext context, AsyncSnapshot<Map<Brand, List<Product?>>> snapshot) {
@@ -74,6 +73,8 @@ Widget HomeTabBar(BuildContext context) {
             final brands = snapshot.data!.keys.toList();
             final gridView = brands.where((brand) => data![brand]!.isNotEmpty).map((brand) {
               List<Product?>? product = data?[brand];
+              log.d("loger");
+              log.d(product![0]?.id);
               int size = 0; // Initialize size here
               if (product != null && product.isNotEmpty) {
                 size = product.length;
@@ -87,6 +88,8 @@ Widget HomeTabBar(BuildContext context) {
                 itemCount: size,
                 itemBuilder: (BuildContext context, int index) {
                   // Ensure product is not null before accessing its elements
+                  log.d("+++++++++++++++++++++++++++++=");
+                  log.d(product?[index]?.id);
                   return product != null && product.isNotEmpty ? ShoesCard(shoeCard: product[index]) : SizedBox();
                 },
               );

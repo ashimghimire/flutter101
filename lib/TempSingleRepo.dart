@@ -22,17 +22,29 @@ class TempSingleRepo {
   }
 
     Stream<List<Product>> getAllProducts()  {
-    var event = FirebaseFirestore.instance.collection("product").get().asStream().map((querysnapshot) => querysnapshot.docs.map((doc)=>Product.fromJson(doc.data())).toList());
+    Map<String,dynamic> dataProcessor={};
+    var event = FirebaseFirestore.instance.collection("product").get().asStream().map((querysnapshot) => querysnapshot.docs.map((doc) {
+      dataProcessor.addEntries(doc.data().entries);
+      dataProcessor.putIfAbsent('id', () => doc.id);
+      return Product.fromJson(dataProcessor);}).toList());
     return event;
   }
 
-    Stream<ProductDetailReducer> getProductDetail(Product product) {
+    Stream<ProductDetail?> getProductDetail(Product product) {
+        log.d(product.id);
       return FirebaseFirestore.instance
-          .collection("productDetail")
-          .where("id", isEqualTo: product.id)
-          .snapshots()
-          .expand((querySnapshot) => querySnapshot.docs)
-          .map((doc) => ProductDetailReducer(ProductDetail.fromJson(doc.data()),product));
+        .collection("productDetail")
+        .where("product_id", isEqualTo: product.id)
+        .snapshots().map((snapshot){
+          log.d("Snapshots");
+          log.d(snapshot.docs.isNotEmpty);
+          if(snapshot.docs.isNotEmpty) {
+            final data=snapshot.docs.first.data();
+            return ProductDetail.fromJson(data);
+          }else {
+            return null;
+          }
+    });
     }
 
 
